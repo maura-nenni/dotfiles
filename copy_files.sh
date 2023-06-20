@@ -1,12 +1,15 @@
 #!/bin/bash
 
-CONFIGFOLDER := ${HOME}/.config
+configfolder=${HOME}/.config
+echo "--- copy from ${configfolder}"
 
 # starship config
-cp ${CONFIGFOLDER}/starship.toml config/
+cp ${configfolder}/starship.toml config/
 
 # tmux config
 cp ~/.tmux.conf .
 
 # nvim config
-cp ${CONFIGFOLDER}/nvim/*.vim config/nvim/
+cp ${configfolder}/nvim/*.vim config/nvim/
+
+echo "--- copy done"

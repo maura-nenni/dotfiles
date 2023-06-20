@@ -2,7 +2,7 @@
 
 echo "--- INSTALLATION MAURA NENNI CONFIG"
 
-CONFIGFOLDER := ${HOME}/.config
+CONFIGFOLDER=${HOME}/.config
 
 # installation des paquets de base 
 sudo apt update

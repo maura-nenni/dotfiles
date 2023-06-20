@@ -15,8 +15,8 @@ truncation_symbol = "…/"
 
 [time]
 disabled = true
-# time_format = '%R'
-# format = '🕙[\[ $time \]]($style) '
+#time_format = '%R'
+#format = '🕙[\[ $time \]]($style) '
 
 [cmd_duration]
 disabled = true
