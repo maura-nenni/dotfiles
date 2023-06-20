@@ -2,7 +2,7 @@
 
 echo "--- INSTALLATION MAURA NENNI CONFIG"
 
-CONFIGFOLDER=${HOME}/.config
+configfolder=${HOME}/.config
 
 # installation des paquets de base 
 sudo apt update
@@ -22,7 +22,7 @@ rm ${zip_file}
 
 # miniconda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-bash  miniconda.sh -b -p /opt/miniconda 
+sudo bash  miniconda.sh -b -p /opt/miniconda 
 export PATH="/opt/miniconda/bin:$PATH"
 conda init
 echo "conda deactivate" >> ${HOME}/.bashrc
@@ -34,25 +34,25 @@ conda install -y mamba -c conda-forge
 echo "--- TMUX "
 cp .tmux.conf ${HOME}/
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-tmux source ${HOME}/.tmux.conf
+# tmux source ${HOME}/.tmux.conf
 
 ## install nvim & config
 echo "--- NVIM "
 # install
-curl -C -O https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+curl -O https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 chmod u+x nvim.appimage && ./nvim.appimage
 rm nvim.appimage
 # config with vim-plug
-sh -c 'curl -fLo ${CONFIGFOLDER}/nvim/autoload/plug.vim --create-dirs \
+sh -c 'curl -fLo ${configfolder}/nvim/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-cp .config/nvim/*.vim ${CONFIGFOLDER}/nvim/
-mkdir ${CONFIGFOLDER}/nvim/plugged
+cp config/nvim/*.vim ${configfolder}/nvim/
+mkdir ${configfolder}/nvim/plugged
 
 # starship
 echo "--- STARSHIP "
-curl -sS https://starship.rs/install.sh
+curl -O https://starship.rs/install.sh
 chmod +x install.sh && ./install.sh && rm install.sh
-cp .config/starship.toml ${CONFIGFOLDER}/
+cp config/starship.toml ${configfolder}/
 echo "eval \"$(starship init bash)\"" >> ${HOME}/.bashrc
 
 
