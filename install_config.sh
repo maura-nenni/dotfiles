@@ -22,7 +22,7 @@ rm ${zip_file}
 
 # miniconda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-bash  miniconda.sh
+bash  miniconda.sh -b
 conda init
 source ${HOME}/.bashrc
 echo "conda deactivate" >> ${HOME}/.bashrc
