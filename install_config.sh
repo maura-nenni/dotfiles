@@ -37,7 +37,7 @@ cp .tmux.conf ${HOME}/
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux source ${HOME}/.tmux.conf
 ${HOME}/.tmux/plugins/tpm/scripts/install_plugins.sh # same as prefix + I
-sed -i -e 's/@catppuccin_date_time\" \"off\"/@catppuccin_date_time\" \"%d-%m%Y %H\;%M\"/' ${HOME}/.tmux/plugins/catppuccin-tmux/catppuccin.tmux
+sed -i -e 's/@catppuccin_date_time\" \"off\"/@catppuccin_date_time\" \"%d-%m%Y %H\:%M\"/' ${HOME}/.tmux/plugins/catppuccin-tmux/catppuccin.tmux
 
 ## install nvim & config
 echo "--- NVIM "

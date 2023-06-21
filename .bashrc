@@ -84,17 +84,17 @@ fi
 # aliases
 alias ll='ls -alF'
 alias la='ls -A'
-alias c=’clear’
-alias maj=’sudo apt update && sudo apt upgrade’
+alias c="clear"
+alias maj="sudo apt update && sudo apt upgrade -y"
 alias ..='cd .. && pwd'
 alias ...='cd .. && cd .. && pwd'
 alias ....='cd .. && cd .. && cd .. && pwd'
 
 # aliases for git
-alias g=’git’
-alias st=’git status’
-alias com=’git commit -m’
-alias all=’git add .’
+alias g="git"
+alias st="git status"
+alias com="git commit -m"
+alias all="git add ."
 
 # pour chercher une commande dans history
 function hg() {
