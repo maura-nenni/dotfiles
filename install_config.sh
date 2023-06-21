@@ -22,8 +22,7 @@ rm ${zip_file}
 
 # miniconda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-sudo bash  miniconda.sh -b -p /opt/miniconda 
-export PATH="/opt/miniconda/bin:$PATH"
+bash  miniconda.sh
 conda init
 source ${HOME}/.bashrc
 echo "conda deactivate" >> ${HOME}/.bashrc
@@ -49,11 +48,14 @@ sudo mv nvim.appimage /usr/local/bin/nvim
 # config with vim-plug
 curl -fLo ${configfolder}/nvim/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-cp config/nvim/*.vim ${configfolder}/nvim/
 mkdir ${configfolder}/nvim/plugged
+# copie d'abord la liste des plugins en tant que init.vim
+cp config/nvim/pluggins.vim ${configfolder}/nvim/init.vim
 
 # install plugins
 nvim --headless +PlugInstall +qa
+# copie correctement les config
+cp config/nvim/*.vim ${configfolder}/nvim/
 
 # starship
 echo "--- STARSHIP "
