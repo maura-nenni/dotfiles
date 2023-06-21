@@ -27,7 +27,7 @@ export PATH="/opt/miniconda/bin:$PATH"
 conda init
 source ${HOME}/.bashrc
 echo "conda deactivate" >> ${HOME}/.bashrc
-conda clean -y --all && rm -f /opt/miniconda.sh
+conda clean -y --all && rm -f miniconda.sh
 apt autoremove --purge && apt clean
 conda install -y mamba -c conda-forge
 
@@ -37,7 +37,7 @@ cp .tmux.conf ${HOME}/
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 tmux source ${HOME}/.tmux.conf
 ${HOME}/.tmux/plugins/tpm/scripts/install_plugins.sh # same as prefix + I
-sed -i -e 's/@catppuccin_date_time\" \"off\"/@catppuccin_date_time\" \"%d-%m%Y %H\:%M\"/' ${HOME}/.tmux/plugins/catppuccin-tmux/catppuccin.tmux
+sed -i -e 's/@catppuccin_date_time\" \"off\"/@catppuccin_date_time\" \"%d-%m-%Y %H\:%M\"/' ${HOME}/.tmux/plugins/catppuccin-tmux/catppuccin.tmux
 
 ## install nvim & config
 echo "--- NVIM "
@@ -59,7 +59,7 @@ nvim --headless +PlugInstall +qa
 echo "--- STARSHIP "
 curl -sS https://starship.rs/install.sh | sh
 cp config/starship.toml ${configfolder}/
-echo "eval \"$(starship init bash)\"" >> ${HOME}/.bashrc
+echo "eval \"\$(starship init bash)\"" >> ${HOME}/.bashrc
 
 
 echo "--- INSTALL DONE "
