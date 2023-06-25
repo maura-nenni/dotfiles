@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Run une ligne spécifique
+# > sed -n 'nline p' file | bash
+# plusieurs lignes
+# > sed -n 'start,end p' file | bash
+
 # Declaration des trucs à installer
 MAJ=0
 BASHRC=0
@@ -109,7 +114,7 @@ if [ "$MAJ" = "1" ]; then
     echo "--- maj system "
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install gcc make perl tmux wget curl bzip2 unzip libfuse2 build-essential python3 -y
+    sudo apt install gcc make perl tmux wget curl bzip2 unzip libfuse2 build-essential nodejs python3 -y
 fi
 
 # copy bashrc
@@ -133,7 +138,7 @@ if [ "$MAMBA" = "1" ]; then
     echo "--- MAMBA "
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     bash  miniconda.sh -b
-    conda init
+    ${HOME}/miniconda3/bin/conda init
     source ${HOME}/.bashrc
     echo "conda deactivate" >> ${HOME}/.bashrc
     conda clean -y --all && rm -f miniconda.sh
@@ -165,7 +170,7 @@ if [ "$NVIM" = "1" ]; then
     # theme : <spc>+th 
     
     # installation de la configuration
-    cp -r config/nvim/* ${HOME}/.config/nvim/lua/customs/
+    cp -r config/nvim/* ${HOME}/.config/nvim/lua/custom/
 
 fi
 
