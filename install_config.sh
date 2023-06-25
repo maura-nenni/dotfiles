@@ -114,7 +114,7 @@ if [ "$MAJ" = "1" ]; then
     echo "--- maj system "
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install gcc make perl tmux wget curl bzip2 unzip libfuse2 build-essential nodejs python3 -y
+    sudo apt install gcc make perl tmux wget curl bzip2 unzip libfuse2 build-essential nodejs npm python3 -y
 fi
 
 # copy bashrc
