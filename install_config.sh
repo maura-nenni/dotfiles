@@ -184,25 +184,22 @@ if [ "$TMUX" = "1" ]; then
     sed -i -e 's/@catppuccin_date_time\" \"off\"/@catppuccin_date_time\" \"%d-%m-%Y %H\:%M\"/' ${HOME}/.tmux/plugins/catppuccin-tmux/catppuccin.tmux
 fi
 
-## install nvim & config
+## install nvim & NvChad + custom config
 if [ "$NVIM" = "1" ]; then
     echo "--- NVIM "
-    # install
+    # install neovim
     curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
     chmod u+x nvim.appimage
     sudo mv nvim.appimage /usr/local/bin/nvim
 
-    # config with vim-plug
-    curl -fLo ${configfolder}/nvim/autoload/plug.vim --create-dirs \
-           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    mkdir ${configfolder}/nvim/plugged
-    # copie d'abord la liste des plugins en tant que init.vim
-    cp config/nvim/pluggins.vim ${configfolder}/nvim/init.vim
+    # installation de NvChad
+    git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+    nvim
+    
+    # pas de config example
+    # theme : <spc>+th 
+    # :TSInstall bash, :TSInstall python
 
-    # install plugins
-    nvim --headless +PlugInstall +qa
-    # copie correctement les config
-    cp config/nvim/*.vim ${configfolder}/nvim/
 fi
 
 # starship
