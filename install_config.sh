@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Declaration des trucs à installer
-MAJ=1
-BASHRC=1
-NERDFONT=1
+MAJ=0
+BASHRC=0
+NERDFONT=0
 font=FiraCode
-MAMBA=1
-TMUX=1
-NVIM=1
-STARSHIP=1
+MAMBA=0
+TMUX=0
+NVIM=0
+STARSHIP=0
 HELP="
 Si pas d'arguments, installe tout sinon :
 -u          update, upgrade et installe les paquets nécessaires
@@ -28,71 +28,28 @@ while getopts "hubfctnso:" x; do
             exit 2
             ;;
         u)
-            BASHRC=0
-            NERDFONT=0
-            MAMBA=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
+            MAJ=1
             ;;
         b)
-            MAJ=0
-            NERDFONT=0
-            MAMBA=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
+            BASHRC=1
             ;;
         f)
-            MAJ=0
-            BASHRC=0
             NERDFONT=1
-            MAMBA=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
             ;;
-        
         o)
-            MAJ=0
-            BASHRC=0
             font="$OPTARG"
-            MAMBA=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
             ;;
         c)
-            MAJ=0
-            BASHRC=0
-            NERDFONT=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
+            MAMBA=1
             ;;
         t)
-            MAJ=0
-            BASHRC=0
-            NERDFONT=0
-            MAMBA=0
-            NVIM=0
-            STARSHIP=0
+            TMUX=1
             ;;
         n)
-            MAJ=0
-            BASHRC=0
-            NERDFONT=0
-            MAMBA=0
-            TMUX=0
-            STARSHIP=0
+            NVIM=1
             ;;
         s)
-            MAJ=0
-            BASHRC=0
-            NERDFONT=0
-            MAMBA=0
-            TMUX=0
-            NVIM=0
+            STARSHIP=1
             ;;
         ?)
             printf "Pas compris arg, essaye -h\\n"
@@ -100,6 +57,16 @@ while getopts "hubfctnso:" x; do
             ;;
     esac
 done
+
+if [ $OPTIND -eq 1 ]; then 
+  MAJ=1
+  BASHRC=1
+  NERDFONT=1
+  MAMBA=1
+  TMUX=1
+  NVIM=1
+  STARSHIP=1
+fi
 
 printf "===============================\\n"
 printf "INSTALLATION MAURA NENNI CONFIG\\n"
@@ -195,10 +162,10 @@ if [ "$NVIM" = "1" ]; then
     # installation de NvChad
     git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
     nvim
-    
-    # pas de config example
     # theme : <spc>+th 
-    # :TSInstall bash, :TSInstall python
+    
+    # installation de la configuration
+    cp -r config/nvim/* ${HOME}/.config/nvim/lua/customs/
 
 fi
 
