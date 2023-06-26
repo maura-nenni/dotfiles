@@ -105,6 +105,22 @@ local plugins = {
     end,
   },
 
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("neogen").setup({
+        languages = {
+          python = {
+            template = {
+              annotation_convention = "numpydoc"
+            },
+          },
+        },
+      })
+    end,
+  },
+
 }
 
 return plugins

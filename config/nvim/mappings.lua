@@ -4,10 +4,12 @@ local M = {}
 M.abc = {
   n = {
     ["<leader>a"] = {"<cmd> AerialToggle! <CR>", "toggle aerial window"},
+    ["<leader>nf"] = {":lua require('neogen').generate()<CR>", "generate docstring with neogen", opts = { noremap = true, silent = true}},
+    ["<F4>"] = { ":w <bar> exec '!python3 '.shellescape('%')<CR>", "run current python file"},
   },
 
   i = {
-    ["jk"] = {"<ESC>", "escape insert mode", opts = { nowait = true}}
+    ["jk"] = {"<ESC>", "escape insert mode", opts = { nowait = true}},
   },
 }
 
@@ -22,7 +24,7 @@ M.dap ={
         require("dap").continue()
       end
     }
-  }
+  },
 }
 
 -- run python debugger
@@ -36,11 +38,5 @@ M.dap_python ={
     }
   }
 }
-
--- M.aerial = {
---   plugin = true,
---   n = {
---   }
--- }
 
 return M
