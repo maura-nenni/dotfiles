@@ -1,5 +1,27 @@
 local plugins = {
 
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+  },
+
+  {
+    "jedrzejboczar/possession.nvim",
+    lazy=false,
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function ()
+      require('possession').setup {
+        commands = {
+          save = 'SSave',
+          load = 'SLoad',
+          delete = 'SDelete',
+          list = 'SList',
+        },
+        plugins = { delete_hidden_buffers = false },
+      }
+    end
+  },
+
   {"nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {

@@ -18,3 +18,4 @@ vim.opt.colorcolumn = "120"
 -- nombre relatif par rapport à la ligne actuelle
 vim.wo.relativenumber = true
 
+

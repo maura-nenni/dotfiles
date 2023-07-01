@@ -1,8 +1,15 @@
 local M = {}
 
 -- global mappins
-M.abc = {
+M.general = {
+
   n = {
+
+    ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "Tmux window left" },
+    ["<C-l>"] = { "<cmd> TmuxNavigateRight<CR>", "Tmux window right" },
+    ["<C-j>"] = { "<cmd> TmuxNavigateDown<CR>", "Tmux window down" },
+    ["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "Tmux window up" },
+
     ["<leader>a"] = {"<cmd> AerialToggle! <CR>", "toggle aerial window"},
     ["<leader>nf"] = {":lua require('neogen').generate()<CR>", "generate docstring with neogen", opts = { noremap = true, silent = true}},
     ["<F4>"] = { ":w <bar> exec '!python3 '.shellescape('%')<CR>", "run current python file"},
