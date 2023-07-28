@@ -1,0 +1,38 @@
+# Ceci est le fichier de configuration personnel de Git.
+[user]
+  # Veuillez adapter et décommenter les lignes suivantes :
+  name = maura-nenni
+  email = maura.nenni@tuta.io
+
+[color]
+	advice = true
+	branch = true
+	diff = true
+	grep = true
+	interactive = true
+	pager = true
+	push = true
+	remote = true
+	showBranch = true
+	status = true
+	transport = true
+	ui = true
+
+[alias]
+  s = status
+  a = add
+  c = commit -m
+  co = checkout
+  d = diff
+  ps = push
+  pl = pull
+  
+  # dernier commit
+  last = log -1 HEAD 
+
+  # list aliases
+  alias = "!git config -l | grep alias | cut -c 7-"
+  
+  # affiche graphe des commit
+  graph = "!git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'"
+

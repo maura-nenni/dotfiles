@@ -16,10 +16,16 @@ export EDITOR='nvim'
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+# HISTCONTROL=ignoreboth
+
+# avoid duplicates
+HISTCONTROL=ignoredups:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+
+# After each command, append to the history file and reread it
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
@@ -81,20 +87,31 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias c="clear"
-alias maj="sudo apt update && sudo apt upgrade -y"
-alias ..='cd .. && pwd'
-alias ...='cd .. && cd .. && pwd'
-alias ....='cd .. && cd .. && cd .. && pwd'
+if [ -f ~/.bash_aliases ]; then
+  . ~/.bash_aliases
+fi
 
-# aliases for git
-alias g="git"
-alias st="git status"
-alias com="git commit -m"
-alias all="git add ."
+# enable programmable completion features
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+function_exists() {
+  declare -f -F $1 > /dev/null
+  return $?
+}
+
+# remplace git <alias> par g<alias> avec les alias du .gitconfig
+for al in `git --list-cmds=alias`; do
+  alias g$al="git $al"
+  
+  complete_func=_git_$(__git_aliased_command $al)
+  function_exists $complete_fnc && __git_complete g$al $complete_func
+done
 
 # pour chercher une commande dans history
 function hg() {
@@ -104,5 +121,4 @@ function hg() {
 # autocompletion depuis l'historique
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
-
 

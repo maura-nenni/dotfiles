@@ -17,7 +17,7 @@ STARSHIP=0
 HELP="
 Si pas d'arguments, installe tout sinon :
 -u          update, upgrade et installe les paquets nécessaires
--b          copie le .bashrc
+-b          copie le .bashrc, .gitconfig, .bash_aliases .git-complete.bash
 -f          installe une font de nerd-fonts, FiraCode par défaut
 -o FONT     précise la font
 -c          installe miniconda en local avec mamba
@@ -121,6 +121,9 @@ fi
 if [ "$BASHRC" = "1" ]; then
     echo "--- BASHRC "
     cp .bashrc ${HOME}/
+    cp .bash_aliases ${HOME}/
+    cp .gitconfig ${HOME}/
+    cp .git-completion.bash ${HOME}/
 fi
 
 # install a nerd-font
