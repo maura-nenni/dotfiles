@@ -119,6 +119,8 @@ function hg() {
 }
 
 # autocompletion depuis l'historique
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
+if [ -t 1 ]; then
+    bind '"\e[A": history-search-backward'
+    bind '"\e[B": history-search-forward'
+fi
 
