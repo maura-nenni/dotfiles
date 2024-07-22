@@ -10,6 +10,6 @@ cp ${configfolder}/starship.toml config/
 cp ~/.tmux.conf .
 
 # nvim config
-cp ${configfolder}/nvim/*.vim config/nvim/
+cp -r  ${configfolder}/nvim/lua/custom/* config/nvim/
 
 echo "--- copy done"

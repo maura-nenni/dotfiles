@@ -1,18 +1,23 @@
 #!/bin/bash
 
+# Run une ligne spécifique
+# > sed -n 'nline p' file | bash
+# plusieurs lignes
+# > sed -n 'start,end p' file | bash
+
 # Declaration des trucs à installer
-MAJ=1
-BASHRC=1
-NERDFONT=1
+MAJ=0
+BASHRC=0
+NERDFONT=0
 font=FiraCode
-MAMBA=1
-TMUX=1
-NVIM=1
-STARSHIP=1
+MAMBA=0
+TMUX=0
+NVIM=0
+STARSHIP=0
 HELP="
 Si pas d'arguments, installe tout sinon :
 -u          update, upgrade et installe les paquets nécessaires
--b          copie le .bashrc
+-b          copie le .bashrc, .gitconfig, .bash_aliases .git-complete.bash
 -f          installe une font de nerd-fonts, FiraCode par défaut
 -o FONT     précise la font
 -c          installe miniconda en local avec mamba
@@ -28,71 +33,28 @@ while getopts "hubfctnso:" x; do
             exit 2
             ;;
         u)
-            BASHRC=0
-            NERDFONT=0
-            MAMBA=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
+            MAJ=1
             ;;
         b)
-            MAJ=0
-            NERDFONT=0
-            MAMBA=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
+            BASHRC=1
             ;;
         f)
-            MAJ=0
-            BASHRC=0
             NERDFONT=1
-            MAMBA=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
             ;;
-        
         o)
-            MAJ=0
-            BASHRC=0
             font="$OPTARG"
-            MAMBA=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
             ;;
         c)
-            MAJ=0
-            BASHRC=0
-            NERDFONT=0
-            TMUX=0
-            NVIM=0
-            STARSHIP=0
+            MAMBA=1
             ;;
         t)
-            MAJ=0
-            BASHRC=0
-            NERDFONT=0
-            MAMBA=0
-            NVIM=0
-            STARSHIP=0
+            TMUX=1
             ;;
         n)
-            MAJ=0
-            BASHRC=0
-            NERDFONT=0
-            MAMBA=0
-            TMUX=0
-            STARSHIP=0
+            NVIM=1
             ;;
         s)
-            MAJ=0
-            BASHRC=0
-            NERDFONT=0
-            MAMBA=0
-            TMUX=0
-            NVIM=0
+            STARSHIP=1
             ;;
         ?)
             printf "Pas compris arg, essaye -h\\n"
@@ -100,6 +62,16 @@ while getopts "hubfctnso:" x; do
             ;;
     esac
 done
+
+if [ $OPTIND -eq 1 ]; then 
+  MAJ=1
+  BASHRC=1
+  NERDFONT=1
+  MAMBA=1
+  TMUX=1
+  NVIM=1
+  STARSHIP=1
+fi
 
 printf "===============================\\n"
 printf "INSTALLATION MAURA NENNI CONFIG\\n"
@@ -142,13 +114,16 @@ if [ "$MAJ" = "1" ]; then
     echo "--- maj system "
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install gcc make perl tmux wget curl bzip2 unzip libfuse2 build-essential python3 -y
+    sudo apt install gcc make perl tmux wget curl bzip2 unzip libfuse2 build-essential nodejs npm python3 -y
 fi
 
 # copy bashrc
 if [ "$BASHRC" = "1" ]; then
     echo "--- BASHRC "
     cp .bashrc ${HOME}/
+    cp .bash_aliases ${HOME}/
+    cp .gitconfig ${HOME}/
+    cp .git-completion.bash ${HOME}/
 fi
 
 # install a nerd-font
@@ -166,7 +141,7 @@ if [ "$MAMBA" = "1" ]; then
     echo "--- MAMBA "
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     bash  miniconda.sh -b
-    conda init
+    ${HOME}/miniconda3/bin/conda init
     source ${HOME}/.bashrc
     echo "conda deactivate" >> ${HOME}/.bashrc
     conda clean -y --all && rm -f miniconda.sh
@@ -184,25 +159,22 @@ if [ "$TMUX" = "1" ]; then
     sed -i -e 's/@catppuccin_date_time\" \"off\"/@catppuccin_date_time\" \"%d-%m-%Y %H\:%M\"/' ${HOME}/.tmux/plugins/catppuccin-tmux/catppuccin.tmux
 fi
 
-## install nvim & config
+## install nvim & NvChad + custom config
 if [ "$NVIM" = "1" ]; then
     echo "--- NVIM "
-    # install
+    # install neovim
     curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
     chmod u+x nvim.appimage
     sudo mv nvim.appimage /usr/local/bin/nvim
 
-    # config with vim-plug
-    curl -fLo ${configfolder}/nvim/autoload/plug.vim --create-dirs \
-           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    mkdir ${configfolder}/nvim/plugged
-    # copie d'abord la liste des plugins en tant que init.vim
-    cp config/nvim/pluggins.vim ${configfolder}/nvim/init.vim
+    # installation de NvChad
+    git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+    nvim
+    # theme : <spc>+th 
+    
+    # installation de la configuration
+    cp -r config/nvim/* ${HOME}/.config/nvim/lua/custom/
 
-    # install plugins
-    nvim --headless +PlugInstall +qa
-    # copie correctement les config
-    cp config/nvim/*.vim ${configfolder}/nvim/
 fi
 
 # starship

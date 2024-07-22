@@ -1,0 +1,8 @@
+default_model = "ollama/llama3"
+
+system_prompt = "Coucou dis-moi tout."
+
+message_code_theme = "catppuccin"
+
+[[models]]
+name = "ollama/llama3"
